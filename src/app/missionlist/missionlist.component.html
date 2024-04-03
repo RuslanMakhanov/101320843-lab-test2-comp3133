@@ -1,0 +1,22 @@
+<!-- missionlist.component.html -->
+<div>
+    <label for="search-year">Filter by launch year:</label>
+    <input type="text" id="search-year" placeholder="Enter year" (input)="onSearchYear($event.target.value)">
+  </div>
+  
+  <div *ngIf="filteredLaunches; else loading">
+    <ul>
+      <li *ngFor="let launch of filteredLaunches">
+        <h3>{{ launch.mission_name }}</h3>
+        <p>Launch Year: {{ launch.launch_year }}</p>
+        <p *ngIf="launch.details">{{ launch.details }}</p>
+        <img *ngIf="launch.links.mission_patch_small" [src]="launch.links.mission_patch_small" alt="Mission Patch">
+        <button [routerLink]="['/mission-details', launch.flight_number]">View Details</button>
+      </li>
+    </ul>
+  </div>
+  
+  <ng-template #loading>
+    <p>Loading launches...</p>
+  </ng-template>
+  
